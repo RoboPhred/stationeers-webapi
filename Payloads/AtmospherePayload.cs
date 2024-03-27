@@ -5,7 +5,7 @@ namespace StationeersWebApi.Payloads
     public class AtmospherePayload : IAtmosphericContentPayload
     {
         public string roomId { get; set; }
-        public float? pipeNetworkId { get; set; }
+        public float? networkReferenceId { get; set; }
         public bool isGlobal { get; set; }
 
         public float oxygen { get; set; }
@@ -25,7 +25,7 @@ namespace StationeersWebApi.Payloads
             var payload = new AtmospherePayload()
             {
                 roomId = atmosphere.Room?.RoomId.ToString(),
-                pipeNetworkId = atmosphere.PipeNetwork?.NetworkId,
+                networkReferenceId = atmosphere.AtmosphericsNetwork.ReferenceId,
                 isGlobal = atmosphere.IsGlobalAtmosphere,
             };
             payload.CopyFromAtmosphere(atmosphere);

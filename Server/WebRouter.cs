@@ -30,7 +30,7 @@ namespace StationeersWebApi.Server
         public void AddRoute(IWebRoute route)
         {
             // Put the longest paths first, to help ** path params.
-            this.routes = this.routes.Append(route).OrderByDescending(x => this.GetPathSegments(x.Path).Length).ToList();
+            this.routes = this.routes.Concat(new[] { route }).OrderByDescending(x => this.GetPathSegments(x.Path).Length).ToList();
         }
 
         /// <summary>

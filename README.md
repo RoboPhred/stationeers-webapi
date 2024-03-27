@@ -9,12 +9,12 @@ Requires [BepInEx 5.0.1](https://github.com/BepInEx/BepInEx/releases) or later.
 1. Install BepInEx in the Stationeers steam folder.
 2. Launch the game, reach the main menu, then quit back out.
 3. In the steam folder, there should now be a folder BepInEx/Plugins
-4. Create a folder `stationeers-StationeersWebApi` in the BepInEx/Plugins folder.
+4. Create a folder `StationeersWebApi` in the BepInEx/Plugins folder.
 5. Extract the release zip file to this folder.
 
 # Compatibility
 
-This mod has been tested against Stationeers 0.2.2821.13996 and its Dedicated Server.
+This mod has been tested against Stationeers 0.2.4889.
 
 # Usage
 
@@ -28,8 +28,6 @@ This file should be a json object with the following properties.
 
 - `enabled` (bool): Specify whether the mod should be enabled or disabled. Set to `true` to enable.
 - `port` (number): The port to use. Defaults to your server's game port.
-- `protocol` (`http` or `https`, optional): Sets the protocol to use for the api.
-  - Note: https prevents malacious networks from stealing login credentials, and is required for the `steam` authentication mode.
 - `passwordAuthentication`: Settings for unsecure plaintext password authentication.
   - `enabled`: Set to true to enable this authentication mechanism.
   - `password`: The password to require.
@@ -153,30 +151,6 @@ steamId should be a valid steamId, but the player does not have to be on the ser
 - `hours` (int): The number of hours to ban the player for.
 - `reason` (string, optional): The reason message for the ban. Can be empty.
 
-### GET /api/bans
-
-Gets an array of all bans.
-
-### GET /api/bans/:steamId
-
-Gets a ban by steam id.
-
-### DELETE /api/bans/:steamId
-
-Removes a ban by steam id.
-
-### GET /api/chat
-
-Gets an array of chat messages currently known to the server.
-
-### POST /api/chat
-
-Sends a chat message to the server
-
-#### Body
-
-- `message` (string): The message to send to the server.
-
 ### GET /api/things
 
 Gets an array of all things.
@@ -239,37 +213,13 @@ Gets an array of all atmosphere cells.
 
 Gets an array of all pipe networks.
 
-### GET /api/saves
-
-Gets the time the game last saved this session.
-
 ### POST /api/saves
 
 Save the game
 
-### GET /api/station-contacts
-
-Gets a list of station contacts, including satalites and traders.
-
-### GET /api/station-contacts/:contactId
-
-Gets a station contact by contact id.
-
-### POST /api/station-contacts/:contactId
-
-Change properties of a station contact.
-
-### DELETE /api/station-contacts/:contactId
-
-Delete a station contact by contact id.
-
 ### GET /api/stationpedia/ic/instructions
 
 Gets a dictionary of IC10 instructions.
-
-### GET /api/stationpedia/ic/enums
-
-Gets a dictionary of all possible enums that IC10 instructions can reference.
 
 ### GET /api/stationpedia/logic/slottypes
 
@@ -279,54 +229,19 @@ Gets a dictionary of possible logic slot types.
 
 Gets a dictionary of possible logic types.
 
-### GET /api/stationpedia/things
-
-Gets a dictionary of all possible items, structures and things with properties.
-
-#### Body
-
-- `fileName` (string): The name of the file to save.
-
 # Compiling from source
 
 This mod can be compiled using the .net SDK tools. Visual studio will do nicely, but any text editor will do as long as the .net sdk is installed.
 
 ## Dependencies
 
-This mod makes use of both nuget dependencies, and takes dependencies on game files. For copyright reasons, the game files must be taken from your own game and cannot be redistributed.
+This mod makes use of both nuget dependencies, and takes dependencies on game files.
 
-### Local dependencies
-
-This library uses nuget to install most local dependencies. You can get these dependencies by running `dotnet restore` in the source directory.
-
-As this mod references many game dlls, you need to give it copies of these dlls for it to compile properly. The project is set up to expect these in the `/externals` folder
-
-### Game dependencies
-
-Copy the following files from `Stationeers/rocketstation_Data/Managed` to a folder called `/externals` in the root of the source directory:
-
-- `Assembly-CSharp.dll`
-- `Assembly-CSharp-firstpass.dll`
-- `UnityEngine.dll`
-- `UnityEngine.CoreModule.dll`
-- `UnityEngine.UI.dll`
-- `com.unity.multiplayer-hlapi.Runtime.dll`
-
-Copy `BepInEx.dll` from your BepInEx install to the `/externals` folder.
+To properly work with this mod, the `GameDir` environment variable must be set to your stationeers game directory. Without this, the project
+will not build. You should set this env var in the terminal that launches VSCode or Visual Studio in order to get proper intellisense support.
 
 ## Compiling
 
 Assuming you have installed the .net sdk properly, the project can be built with `dotnet build` from the command line.
 
-# TODO
-
-- More endpoints
-  - Endpoints for derived from Things
-    - DynamicThing ( => Item)
-    - Structure ( => Device)
-  - Endpoint for transmitters (special class of ILogicable seperate from devices)
-  - Endpoint for fabricators / manufacturing
-    - Get recipes
-    - post recipe to facbicator
-- Test chat endpoint on dedicated servers
-- Strip colors from chat name. Probably still include them in message.
+The compiled output will be dropped into the BepInEx plugins directory under the StationeersWebApi folder.

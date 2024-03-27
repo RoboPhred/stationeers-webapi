@@ -115,7 +115,7 @@ namespace StationeersWebApi.Server
 
                     await httpContext.TrySendResponse(webException.StatusCode, new ErrorPayload
                     {
-                        Message = webException.Message,
+                        message = webException.Message,
                     });
                 }
                 else
@@ -131,7 +131,7 @@ namespace StationeersWebApi.Server
 
                     await httpContext.TrySendResponse(HttpStatusCode.InternalServerError, new ErrorPayload
                     {
-                        Message = unwrapped.Message,
+                        message = unwrapped.Message,
                     });
                 }
             }

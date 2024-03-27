@@ -6,6 +6,7 @@
   <PropertyGroup>
     <BepCoreFolder>$(GameDir)/BepInEx/core</BepCoreFolder>
     <BepPluginFolder>$(GameDir)/BepInEx/plugins</BepPluginFolder>
+    <ModOutputDir>$(BepPluginFolder)/StationeersWebApi</ModOutputDir>
     <StationeersBinaries>$(GameDir)/rocketstation_Data/Managed</StationeersBinaries>
   </PropertyGroup>
 
@@ -21,32 +22,56 @@
     <FileAlignment>512</FileAlignment>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <TargetFrameworkProfile />
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutDir>$(ModOutputDir)</OutDir>
+    <PublishDir>$(ModOutputDir)</PublishDir>
+    <DefineConstants>$(DefineConstants);DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutDir>$(ModOutputDir)</OutDir>
+    <PublishDir>$(ModOutputDir)</PublishDir>
+    <DefineConstants>$(DefineConstants);TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="BepInEx.Harmony">
+    <Reference Include="BepInEx.Harmony" CopyToPublishDirectory="Never" PrivateAssets="All">
       <HintPath>$(BepCoreFolder)/BepInEx.Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="0Harmony">
+    <Reference Include="0Harmony" CopyToPublishDirectory="Never" PrivateAssets="All">
       <HintPath>$(BepCoreFolder)/0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="BepInEx" CopyToPublishDirectory="Never">
+    <Reference Include="BepInEx" CopyToPublishDirectory="Never" PrivateAssets="All">
       <HintPath>$(BepCoreFolder)/BepInEx.dll</HintPath>
     </Reference>
 
-    <Reference Include="Assembly-CSharp" CopyToPublishDirectory="Never">
+    <Reference Include="Assembly-CSharp" CopyToPublishDirectory="Never" PrivateAssets="All">
       <HintPath>$(StationeersBinaries)/Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Assembly-CSharp-firstpass" CopyToPublishDirectory="Never">
+    <Reference Include="Assembly-CSharp-firstpass" CopyToPublishDirectory="Never" PrivateAssets="All">
       <HintPath>$(StationeersBinaries)/Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine" CopyToPublishDirectory="Never">
+    <Reference Include="UnityEngine" CopyToPublishDirectory="Never" PrivateAssets="All">
       <HintPath>$(StationeersBinaries)/UnityEngine.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.CoreModule" CopyToPublishDirectory="Never">
+    <Reference Include="UnityEngine.CoreModule" CopyToPublishDirectory="Never" PrivateAssets="All">
       <HintPath>$(StationeersBinaries)/UnityEngine.CoreModule.dll</HintPath>
     </Reference>
-        <Reference Include="UnityEngine.UI" CopyToPublishDirectory="Never">
+    <Reference Include="UnityEngine.UI" CopyToPublishDirectory="Never" PrivateAssets="All">
       <HintPath>$(StationeersBinaries)/UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>

@@ -1,12 +1,12 @@
 
-using Assets.Scripts.Networking;
+using Assets.Scripts;
 using HarmonyLib;
 
 namespace StationeersWebApi.Patches
 {
 
-    [HarmonyPatch(typeof(NetworkManager), "StartServer")]
-    sealed class ServerStartupWatcher
+    [HarmonyPatch(typeof(GameManager), "StartGame")]
+    sealed class GameStartWatcher
     {
         static void Postfix()
         {

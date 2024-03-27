@@ -10,7 +10,6 @@ using StationeersWebApi.Server;
 using System.Threading.Tasks;
 using StationeersWebApi.Server.Exceptions;
 using StationeersWebApi.Payloads;
-using StationeersWebApi.Models;
 using StationeersWebApi.JsonTranslation;
 
 namespace StationeersWebApi
@@ -70,16 +69,19 @@ namespace StationeersWebApi
                 return;
             }
 
-            SettingsModel.ClearLastSave();
+            // TODO: Dispatcher game object is getting destroyed somewhere.
+            Dispatcher.Initialize();
 
+            Logging.Log("Starting server on port {0}", StationeersWebApi.Config.Instance.Port);
             this._webServer = new WebServer(this.OnRequest);
-            this._webServer.Start(StationeersWebApi.Config.Instance.Port ?? SteamServer.Instance.GetGamePort());
+            this._webServer.Start(StationeersWebApi.Config.Instance.Port);
         }
 
         public void StopServer()
         {
             if (this._webServer != null)
             {
+                Logging.Log("Stopping server");
                 this._webServer.Dispose();
                 this._webServer = null;
             }
@@ -94,12 +96,35 @@ namespace StationeersWebApi
 
             if (StationeersWebApi.Config.Instance.Enabled)
             {
-
-                this.ApplyPatches();
+                try
+                {
+                    this.ApplyPatches();
+                    Logging.Log("Patches applied successfully");
+                }
+                catch (Exception ex)
+                {
+                    Logging.Log("Failed to apply patches: {0}", ex.Message);
+                }
 
                 var ownAssembly = typeof(StationeersWebApiPlugin).Assembly;
-                this.RegisterControllers(ownAssembly);
-                JsonTranslator.LoadJsonTranslatorStrategies(ownAssembly);
+
+                try
+                {
+                    this.RegisterControllers(ownAssembly);
+                }
+                catch (Exception ex)
+                {
+                    Logging.Log("Failed to register default controllers: {0}", ex.Message);
+                }
+
+                try
+                {
+                    JsonTranslator.LoadJsonTranslatorStrategies(ownAssembly);
+                }
+                catch (Exception ex)
+                {
+                    Logging.Log("Failed to load JsonTranslator strategies: {0}", ex.Message);
+                }
             }
             else
             {
@@ -118,16 +143,16 @@ namespace StationeersWebApi
         {
             // For a proper implementation of CORS, see https://github.com/expressjs/cors/blob/master/lib/index.js#L159
 
-            if (context.Request.Method == "OPTIONS")
+            if (context.Method == "OPTIONS")
             {
-                context.Response.AddHeader("Access-Control-Allow-Origin", "*");
+                context.SetResponseHeader("Access-Control-Allow-Origin", "*");
                 // TODO: Choose based on available routes at this path
                 context.SetResponseHeader("Access-Control-Allow-Methods", "GET, POST, DELETE");
                 context.SetResponseHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
                 context.SetResponseHeader("Access-Control-Max-Age", "1728000");
                 context.SetResponseHeader("Access-Control-Expose-Headers", "Authorization");
                 context.SetResponseHeader("Content-Length", "0");
-                context.SendResponse(HttpStatusCode.NoContent);
+                await context.SendResponse(HttpStatusCode.NoContent);
                 return true;
             }
             else

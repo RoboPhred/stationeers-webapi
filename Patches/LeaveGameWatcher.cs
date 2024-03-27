@@ -1,12 +1,13 @@
 
+using Assets.Scripts;
 using Assets.Scripts.Networking;
 using HarmonyLib;
 
 namespace StationeersWebApi.Patches
 {
 
-    [HarmonyPatch(typeof(NetworkManager), "StopServer")]
-    sealed class ServerShutdownWatcher
+    [HarmonyPatch(typeof(GameManager), "LeaveGame")]
+    sealed class LeaveGameWatcher
     {
         static void Postfix()
         {
