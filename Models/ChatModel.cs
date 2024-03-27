@@ -1,6 +1,7 @@
 
+#if TODO_CHAT
+
 using System.Linq;
-using Assets.Scripts.Networking;
 using StationeersWebApi.Payloads;
 
 namespace StationeersWebApi.Models
@@ -27,3 +28,5 @@ namespace StationeersWebApi.Models
         }
     }
 }
+
+#endif

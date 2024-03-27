@@ -1,5 +1,5 @@
 
-using Assets.Scripts;
+#if TODO_STATION_CONTACTS
 
 namespace StationeersWebApi.Payloads
 {
@@ -36,3 +36,4 @@ namespace StationeersWebApi.Payloads
         }
     }
 }
+#endif

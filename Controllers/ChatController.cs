@@ -1,7 +1,8 @@
 
+#if TODO_CHAT
+
 using System.Threading.Tasks;
 using StationeersWebApi.Authentication;
-using StationeersWebApi.Models;
 using StationeersWebApi.Payloads;
 using StationeersWebApi.Server;
 using StationeersWebApi.Server.Attributes;
@@ -42,3 +43,5 @@ namespace StationeersWebApi.Controllers
         }
     }
 }
+
+#endif

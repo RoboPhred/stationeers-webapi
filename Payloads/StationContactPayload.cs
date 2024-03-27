@@ -1,9 +1,7 @@
+#if TODO_STATION_CONTACTS
 
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts;
-using Assets.Scripts.Objects;
-using Assets.Scripts.Objects.Electrical;
 
 namespace StationeersWebApi.Payloads
 {
@@ -46,3 +44,5 @@ namespace StationeersWebApi.Payloads
         }
     }
 }
+
+#endif

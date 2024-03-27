@@ -1,7 +1,7 @@
+#if TODO_STATION_CONTACTS
 
 using System.Threading.Tasks;
 using StationeersWebApi.Authentication;
-using StationeersWebApi.Models;
 using StationeersWebApi.Server.Attributes;
 using StationeersWebApi.Server.Exceptions;
 using StationeersWebApi.Payloads;
@@ -57,3 +57,4 @@ namespace StationeersWebApi.Controllers
         }
     }
 }
+#endif

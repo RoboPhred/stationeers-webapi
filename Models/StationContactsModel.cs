@@ -1,7 +1,8 @@
 
+#if TODO_STATION_CONTACTS
+
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts;
 using StationeersWebApi.Payloads;
 
 namespace StationeersWebApi.Models
@@ -60,3 +61,4 @@ namespace StationeersWebApi.Models
         }
     }
 }
+#endif
