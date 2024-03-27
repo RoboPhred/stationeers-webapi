@@ -7,7 +7,7 @@ namespace StationeersWebApi.Payloads
 {
     public class PipeNetworkPayload : IAtmosphericContentPayload
     {
-        public string networkId { get; set; }
+        public string referenceId { get; set; }
 
         public List<PipeNetworkConnectionPayload> connectedDevices { get; set; } = new List<PipeNetworkConnectionPayload>();
 
@@ -27,14 +27,14 @@ namespace StationeersWebApi.Payloads
         {
             var payload = new PipeNetworkPayload
             {
-                networkId = network.NetworkId.ToString()
+                referenceId = network.ReferenceId.ToString()
             };
 
             foreach (var registration in network.DeviceRegister)
             {
                 foreach (var pipe in registration.Value)
                 {
-                    var end = registration.Key.OpenEnds.Find(openEnd => openEnd.GetPipe() == pipe);
+                    var end = registration.Key.OpenEnds.Find(openEnd => object.ReferenceEquals(openEnd.GetPipe(), pipe));
                     if (end != null)
                     {
                         payload.connectedDevices.Add(new PipeNetworkConnectionPayload

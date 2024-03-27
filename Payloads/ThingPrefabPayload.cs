@@ -1,3 +1,4 @@
+#if TODO_THING_PREFABS
 using System;
 using System.Collections.Generic;
 using Assets.Scripts.Objects.Entities;
@@ -345,3 +346,4 @@ namespace StationeersWebApi.Payloads
 
     }
 }
+#endif

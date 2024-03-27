@@ -8,9 +8,9 @@ namespace StationeersWebApi.Models
 {
     public static class PipeNetworkModel
     {
-        public static IList<AtmosphericsNetworkPayload> GetPipeNetworks()
+        public static IList<PipeNetworkPayload> GetPipeNetworks()
         {
-            return PipeNetwork.AllPipeNetworks.Select(network => AtmosphericsNetworkPayload.FromPipeNetwork(network)).ToList();
+            return PipeNetwork.AllPipeNetworks.Select(network => PipeNetworkPayload.FromPipeNetwork(network)).ToList();
         }
     }
 }

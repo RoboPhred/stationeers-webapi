@@ -17,12 +17,14 @@ namespace StationeersWebApi.Controllers
             await context.SendResponse(HttpStatusCode.OK, ICInstructionPayload.FromGame());
         }
 
+#if TODO_IC_ENUMS
         [WebRouteMethod(Method = "GET", Path = "ic/enums")]
         public async Task GetICEnums(IHttpContext context)
         {
             Authenticator.VerifyAuth(context);
             await context.SendResponse(HttpStatusCode.OK, ICEnumPayload.FromGame());
         }
+#endif
 
         [WebRouteMethod(Method = "GET", Path = "logic/slottypes")]
         public async Task GetLogicSlotTypes(IHttpContext context)
@@ -38,6 +40,7 @@ namespace StationeersWebApi.Controllers
             await context.SendResponse(HttpStatusCode.OK, LogicTypesPayload.FromGame());
         }
 
+#if TODO_THING_PREFABS
         [WebRouteMethod(Method = "GET", Path = "things")]
         public async Task GetThings(IHttpContext context)
         {
@@ -45,5 +48,6 @@ namespace StationeersWebApi.Controllers
             var things = await Dispatcher.RunOnMainThread(() => ThingPrefabPayload.FromGame());
             await context.SendResponse(HttpStatusCode.OK, things);
         }
+#endif
     }
 }

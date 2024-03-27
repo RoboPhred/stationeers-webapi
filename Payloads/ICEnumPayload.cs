@@ -1,7 +1,8 @@
+#if TODO_IC_ENUMS
+
 using System.Collections.Generic;
 using Assets.Scripts.Objects.Electrical;
 using System;
-using Newtonsoft.Json;
 
 namespace StationeersWebApi.Payloads
 {
@@ -40,3 +41,4 @@ namespace StationeersWebApi.Payloads
         }
     }
 }
+#endif

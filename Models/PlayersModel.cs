@@ -1,7 +1,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Networking;
 using StationeersWebApi.Payloads;
 
 namespace StationeersWebApi.Models

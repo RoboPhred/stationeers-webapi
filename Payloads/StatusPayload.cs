@@ -14,7 +14,6 @@ namespace StationeersWebApi.Payloads
             var payload = new StatusPayload()
             {
                 playerCount = PlayersModel.GetPlayers().Count,
-                lastSave = SettingsModel.LastSave?.ToString("s", System.Globalization.CultureInfo.InvariantCulture),
                 gameStatus = SettingsModel.GameStatus.ToString()
             };
             return payload;
